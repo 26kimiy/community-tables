@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Tables · Clase de Cocina</title>
+<meta name="description" content="Community Tables (Clase de Cocina) — a monthly cooking class at the Sunday Friends food pantry in San José, California." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#FBF5EA; --paper:#FFFFFF; --ink:#2A2019; --ink-soft:#6E6157;
+    --terra:#BE4A2F; --terra-d:#9E3A22; --herb:#3E6B44; --line:#E7D8C4;
+    --shadow:0 22px 60px rgba(120,70,40,.14); --shadow-sm:0 8px 26px rgba(120,70,40,.10);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{font-family:"Nunito Sans",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.display{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{width:min(1120px,90vw);margin:0 auto}
+  .eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;color:var(--terra)}
+  .eyebrow .es{color:var(--herb)}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:800;font-size:.96rem;padding:.8rem 1.4rem;border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease,background .2s,border-color .2s,color .2s}
+  .btn-primary{background:var(--terra);color:#fff}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--terra-d)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--terra);color:var(--terra)}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(10px);background:rgba(251,245,234,.85);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+  .brand{display:flex;align-items:center;gap:.62rem}
+  .brand .dot{width:38px;height:38px;border-radius:12px;background:var(--terra);display:grid;place-items:center;flex:none;box-shadow:var(--shadow-sm)}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05}
+  .brand-text b{font-family:"Fraunces",serif;font-weight:700;font-size:1.2rem}
+  .brand-text small{font-weight:800;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--herb)}
+  .links{display:flex;align-items:center;gap:.3rem}
+  .links a{padding:.5rem .85rem;border-radius:10px;font-weight:700;color:var(--ink-soft);transition:.18s}
+  .links a:hover{color:var(--terra)}
+  .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.45rem .65rem;font-size:1.2rem;cursor:pointer}
+  @media(max-width:780px){
+    .links{position:absolute;top:62px;right:5vw;flex-direction:column;align-items:stretch;background:#fff;border:1px solid var(--line);border-radius:16px;padding:.5rem;box-shadow:var(--shadow);min-width:190px;display:none}
+    .links.open{display:flex}.links a{padding:.7rem .9rem}.menu-btn{display:block}
+  }
+
+  /* HERO */
+  .hero{padding:clamp(2.6rem,6vw,4.6rem) 0 clamp(2rem,4vw,3.2rem)}
+  .hero-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(1.5rem,4vw,3.4rem);align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:1.8rem}}
+  .hero h1{font-size:clamp(2.9rem,6.4vw,4.6rem);font-weight:600;margin:.5rem 0 .1rem}
+  .hero h1 .es{display:block;font-style:italic;font-weight:500;color:var(--herb);font-size:.62em;margin-top:.15em}
+  .hero .where{margin-top:1.1rem;font-size:1.08rem;color:var(--ink-soft);max-width:34ch}
+  .hero .cta{display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap}
+  .hero-photo{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);aspect-ratio:4/3;transform:rotate(.6deg)}
+  .hero-photo img{width:100%;height:100%;object-fit:cover}
+
+  section{padding:clamp(2.6rem,5vw,4.4rem) 0}
+  .sec-head{margin-bottom:1.9rem}
+  .sec-head h2{font-size:clamp(1.8rem,3.8vw,2.5rem);margin-top:.4rem}
+  .sec-head .lead{color:var(--ink-soft);margin-top:.5rem;font-size:1.02rem;max-width:52ch}
+
+  /* RECIPES */
+  .recipes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem}
+  .rcard{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem 1.4rem 1.35rem;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .18s ease,box-shadow .22s ease;overflow:hidden}
+  .rcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .rcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ac,var(--terra))}
+  .rcard .mon{font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.68rem;color:var(--ink-soft)}
+  .rcard h3{font-size:1.5rem;margin:.5rem 0 .1rem}
+  .rcard .es{font-family:"Fraunces",serif;font-style:italic;font-weight:500;color:var(--herb);font-size:1rem}
+  .rcard .more{margin-top:1rem;font-weight:800;color:var(--terra);font-size:.9rem;display:inline-flex;gap:.35rem;align-items:center}
+
+  /* MISSION */
+  .mission{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .mission-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:center}
+  @media(max-width:860px){.mission-grid{grid-template-columns:1fr}}
+  .mission-photo{border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:5/4}
+  .mission-photo img{width:100%;height:100%;object-fit:cover}
+  blockquote{margin:0;border-left:4px solid var(--terra);padding:.15rem 0 .15rem 1.4rem;font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.18rem,2.1vw,1.5rem);line-height:1.42;color:var(--ink)}
+  blockquote cite{display:block;margin-top:1rem;font-family:"Nunito Sans",sans-serif;font-style:normal;font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--terra)}
+  .facts{margin-top:1.9rem;display:flex;flex-direction:column;gap:1rem}
+  .fact-label{font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;color:var(--terra);margin-bottom:.35rem}
+  .fact p{color:var(--ink-soft);font-size:.98rem}
+  .people{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.2rem}
+  .person{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:.42rem .85rem;font-weight:700;font-size:.9rem;color:var(--ink)}
+  .fact a{color:var(--terra);font-weight:800}
+
+  footer{background:#241C16;color:#E9DBCB;padding:2.4rem 0;text-align:center}
+  footer .fb{font-family:"Fraunces",serif;font-weight:700;color:#fff;font-size:1.2rem}
+  footer .fb .es{font-style:italic;color:#E9C7A6;font-weight:500}
+  footer p{font-size:.9rem;margin-top:.5rem;color:#C9B8A6}
+  footer a{color:#EBB98C;font-weight:700}
+
+  /* MODAL */
+  .overlay{position:fixed;inset:0;background:rgba(42,32,25,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:100;padding:4vh 4vw;overflow-y:auto}
+  .overlay.open{display:flex}
+  .modal{position:relative;background:#fff;border-radius:22px;max-width:940px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--shadow);animation:pop .25s ease}
+  @keyframes pop{from{transform:translateY(12px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+  .modal .close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.94);border:0;width:38px;height:38px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:grid;place-items:center;color:var(--ink);box-shadow:var(--shadow-sm);z-index:6}
+  .md-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:stretch}
+  @media(max-width:760px){.md-grid{grid-template-columns:1fr}}
+  /* carousel */
+  .carousel{background:#F1EDE3;display:flex;flex-direction:column;justify-content:center}
+  .car-stage{position:relative;aspect-ratio:1/1;background:#F1EDE3;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:14px}
+  .car-stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:6px}
+  .car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.95);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(60,40,20,.18);z-index:3;transition:background .15s,transform .15s}
+  .car-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.07)}
+  .car-arrow.prev{left:12px}.car-arrow.next{right:12px}
+  .car-count{position:absolute;bottom:12px;right:14px;background:rgba(42,32,25,.6);color:#fff;font-size:.76rem;font-weight:700;padding:.2rem .55rem;border-radius:8px;z-index:3}
+  .car-dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:11px 10px;background:#F1EDE3}
+  .car-dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(42,32,25,.22);cursor:pointer;padding:0}
+  .car-dots button.on{background:var(--terra)}
+  /* info side */
+  .r-info{padding:2rem 2rem 2.1rem;display:flex;flex-direction:column}
+  .r-info .bar{height:6px;width:52px;border-radius:999px;background:var(--ac,var(--terra));margin-bottom:1rem}
+  .r-info .mon{font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--ink-soft)}
+  .r-info h2{font-size:1.9rem;margin:.3rem 0 .1rem}
+  .r-info .es{font-family:"Fraunces",serif;font-style:italic;color:var(--herb);font-weight:500;font-size:1.1rem}
+  .m-sub{font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--terra);margin:1.4rem 0 .6rem}
+  .m-sub .es{color:var(--herb)}
+  .taglist{display:flex;flex-wrap:wrap;gap:.5rem}
+  .tag{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:.42rem .8rem;font-weight:700;font-size:.86rem;color:var(--ink)}
+  .docrow{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.6rem}
+  .docbtn{display:inline-flex;align-items:center;gap:.45rem;font-weight:800;font-size:.9rem;padding:.7rem 1.1rem;border-radius:999px;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--ink);transition:.15s}
+  .docbtn.primary{background:var(--terra);color:#fff;border-color:var(--terra)}
+  .docbtn.primary:hover{background:var(--terra-d)}
+  .docbtn:hover{border-color:var(--terra);color:var(--terra)}
+  .docbtn.primary:hover{color:#fff}
+
+  /* lightbox for recipe cards / photos */
+  .lightbox{position:fixed;inset:0;background:rgba(30,22,16,.9);display:none;align-items:center;justify-content:center;z-index:200;padding:4vh 4vw;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:100%;max-height:92vh;border-radius:10px;box-shadow:var(--shadow);cursor:default;background:#fff}
+  .lb-close{position:absolute;top:16px;right:18px;background:#fff;border:0;width:42px;height:42px;border-radius:50%;font-size:1.4rem;cursor:pointer;color:var(--ink);box-shadow:var(--shadow-sm)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="dot"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a5 5 0 0 0 5 5v6"/><path d="M9 15a5 5 0 0 0 5-5V3"/><path d="M4 8h5"/><path d="M18 3v18"/><path d="M18 9c2 0 3-1.4 3-3.2S20 3 18 3"/></svg></span>
+      <span class="brand-text"><b>Community Tables</b><small>Clase de Cocina</small></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <nav class="links" id="links">
+      <a href="#recipes">Recipes</a>
+      <a href="#mission">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Clase de Cocina</span>
+      <h1>Community Tables<span class="es">Clase de Cocina</span></h1>
+      <p class="where">A monthly cooking class at the Sunday Friends food pantry in San José, California.</p>
+      <div class="cta">
+        <a href="#recipes" class="btn btn-primary">The recipes</a>
+        <a href="#mission" class="btn btn-ghost">Our story</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/class-wide.jpg" alt="A Community Tables class set up around a long table of food at the Sunday Friends pantry" />
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section id="recipes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Las Recetas <span class="es">· The recipes</span></span>
+      <h2>What we cooked together</h2>
+      <p class="lead">Tap a class to see the photos, the ingredients, and the recipe we sent home.</p>
+    </div>
+    <div class="recipes-grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Nuestra Misión <span class="es">· Why we cook</span></span>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-photo">
+        <img src="images/cofounders-mural.jpg" alt="The Community Tables co-founders" />
+      </div>
+      <div>
+        <blockquote>
+          After many hours helping members of Sunday Friends, our nearest food pantry, pick out groceries, I realized a pivotal difference in how the members and I viewed our food. I am privileged to look forward to my meals, to the conversations that ensue around them, and to the bonding that goes on while my mom and I make them. A luxury, yes, but most certainly one that can be shared. Conversations with the pantry's president led to the birth of Community Tables, where members pile in for fresh ingredients and my favorite recipes. A class that could have been silent is now a factory for hospitality, friendship, and memories.
+          <cite>— Kimi Yashar, founder</cite>
+        </blockquote>
+        <div class="facts">
+          <div class="fact">
+            <div class="fact-label">How it started</div>
+            <p>A $500 Inspire grant from the National Charity League.</p>
+          </div>
+          <div class="fact">
+            <div class="fact-label">The co-founders</div>
+            <div class="people">
+              <span class="person">Kimi Yashar</span>
+              <span class="person">Anvi Shah</span>
+              <span class="person">Uma Saxena</span>
+              <span class="person">Lindsay Li</span>
+              <span class="person">Haley Volkert</span>
+            </div>
+          </div>
+          <div class="fact">
+            <div class="fact-label">Where</div>
+            <p>Hosted at the <a href="https://www.sundayfriends.org" target="_blank" rel="noopener">Sunday Friends Foundation</a>, San José, CA.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fb">Community Tables <span class="es">· Clase de Cocina</span></div>
+    <p>In partnership with the <a href="https://www.sundayfriends.org" target="_blank" rel="noopener">Sunday Friends Foundation</a> · San José, California</p>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true"><div class="modal" id="modal"></div></div>
+<div class="lightbox" id="lightbox"><button class="lb-close" id="lbClose" aria-label="Close">×</button><img id="lightbox-img" src="" alt="Recipe" /></div>
+
+<script>
+  function wx(file){ var ext=file.split(".").pop(); var base=file.slice(0,-(ext.length+1));
+    return "https://static.wixstatic.com/media/87f035_"+base+"~mv2."+ext+"/v1/fit/w_1300,h_1300,q_90,enc_auto/x."+ext; }
+
+  const RECIPES = [
+    { id:"chickpea", ac:"var(--herb)", month:"November 2024", title:"Chickpea Salad", es:"Ensalada de Garbanzos",
+      ingredients:["Chickpeas","Cucumber","Cherry tomatoes","Red onion","Lemon juice","Fresh parsley","Olive oil","Feta cheese","Salt & pepper"],
+      photos:["7c8be71419e84b78a96d23d8cfee87e6.jpg"],
+      docs:[ {label:"The recipe", file:"b0c7c0681b4949a3af36c12a970cf124.png"}, {label:"En español", file:"4bc6142fdf1f4256b3cea3b1676905da.png"}, {label:"Nutrition", file:"05599875daf74f86a9669a52cb05eeec.png"} ] },
+    { id:"pinwheels", ac:"#D98A2B", month:"January 2025", title:"Veggie Pinwheels", es:"Rollitos de Vegetales",
+      ingredients:["Soft lavash bread","Spinach","Bell peppers","Shredded carrots","Cucumber","Cream cheese"],
+      photos:["5020e7567bcf47cc97228202f5943630.png","5275e8c2545d4be6a0d271162fcb1a35.jpg","9df7105efcac4f60ac655877a061268b.jpg","e83813fddb404b4e89dadfb05718b2ba.jpg","5bf5027d52a9457891753aac87c73c4d.jpg"],
+      docs:[ {label:"The recipe", file:"6e903a2568554bd2a7d1a844cb2c6d7d.png"}, {label:"En español", file:"36fc7bade49f455eaf35eccdf4187051.png"}, {label:"Nutrition", file:"fdbead93ee4641b18ee1b0100dc2184c.png"} ] },
+    { id:"springrolls", ac:"var(--terra)", month:"February 2025", title:"Spring Rolls", es:"Rollitos Primavera",
+      ingredients:["Rice paper wrappers","Lettuce","Shredded carrots","Cucumber","Mango","Shrimp or tofu"],
+      photos:["b6b3d4bc250a477f99188bf4d7e0fca4.jpg","d56d0dd4306d4c298539b4d84758a186.jpg"],
+      docs:[ {label:"The recipe", file:"7b9b2550280e4189addaf192be2e6bfd.png"}, {label:"En español", file:"1ac5f9fd03054592b797c55c1f7eacd5.png"}, {label:"Nutrition", file:"331bf2ba1b4242dd922e20a4c8670750.png"} ] },
+    { id:"icecream", ac:"#3A7CA5", month:"March 2025", title:"Homemade Ice Cream", es:"Helado Casero",
+      ingredients:["Ice","Rock salt","Milk or cream","Sugar","Vanilla","A zip-top bag"],
+      photos:["05c1984225fe4717b43b3abed8cd4344.jpg","adc66a4b4d424849aaa1485ef7806259.png","92479fa1140443648dceaad03d62e39a.jpg","79e645a03ceb4fc180d7691b0b7e9f85.jpg","930aae28724648d5b7177b294475c105.jpg","c56993fc53e94fe48443d47792de9a3a.jpg"],
+      docs:[ {label:"The recipe", file:"7694b664e6084116960c56fd179f3594.png"} ] }
+  ];
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = RECIPES.map(r => `
+    <article class="rcard" data-id="${r.id}" tabindex="0" aria-label="${r.title}" style="--ac:${r.ac}">
+      <div class="mon">${r.month}</div>
+      <h3>${r.title}</h3>
+      <div class="es">${r.es}</div>
+      <span class="more">Open the class →</span>
+    </article>`).join("");
+
+  function openModal(id){
+    const r = RECIPES.find(x=>x.id===id); if(!r) return;
+    const imgs = r.photos.map(wx);
+    const dots = imgs.length>1 ? imgs.map((_,i)=>`<button data-i="${i}" class="${i===0?'on':''}" aria-label="Photo ${i+1}"></button>`).join("") : "";
+    const arrows = imgs.length>1 ? '<button class="car-arrow prev" id="carPrev" aria-label="Previous">‹</button><button class="car-arrow next" id="carNext" aria-label="Next">›</button>' : "";
+    const count = imgs.length>1 ? `<span class="car-count" id="carCount">1 / ${imgs.length}</span>` : "";
+    const docs = r.docs.map((d,i)=>`<button class="docbtn ${i===0?'primary':''}" data-file="${d.file}">${i===0?'📄 ':''}${d.label}</button>`).join("");
+    const M = document.getElementById("modal");
+    M.style.setProperty("--ac", r.ac);
+    M.innerHTML = `
+      <button class="close" id="closeBtn" aria-label="Close">×</button>
+      <div class="md-grid">
+        <div class="carousel">
+          <div class="car-stage">
+            ${arrows}
+            <img id="carImg" src="${imgs[0]}" alt="Photo from the ${r.title} class" />
+            ${count}
+          </div>
+          ${dots ? `<div class="car-dots" id="carDots">${dots}</div>` : ""}
+        </div>
+        <div class="r-info">
+          <div class="bar"></div>
+          <div class="mon">${r.month}</div>
+          <h2>${r.title}</h2>
+          <div class="es">${r.es}</div>
+          <div class="m-sub">Ingredients <span class="es">· Ingredientes</span></div>
+          <div class="taglist">${r.ingredients.map(i=>`<span class="tag">${i}</span>`).join("")}</div>
+          <div class="m-sub">The recipe <span class="es">· La receta</span></div>
+          <div class="docrow">${docs}</div>
+        </div>
+      </div>`;
+
+    // carousel
+    let idx=0; const imgEl=document.getElementById("carImg");
+    if(imgs.length>1){
+      const cnt=document.getElementById("carCount"), dotsEl=document.getElementById("carDots");
+      function show(n){ idx=(n+imgs.length)%imgs.length; imgEl.src=imgs[idx]; cnt.textContent=(idx+1)+" / "+imgs.length; Array.prototype.forEach.call(dotsEl.children,(b,i)=>b.classList.toggle("on",i===idx)); }
+      document.getElementById("carPrev").onclick=()=>show(idx-1);
+      document.getElementById("carNext").onclick=()=>show(idx+1);
+      dotsEl.addEventListener("click",e=>{const b=e.target.closest("button"); if(b) show(parseInt(b.dataset.i,10));});
+      M._key=e=>{ if(e.key==="ArrowLeft") show(idx-1); else if(e.key==="ArrowRight") show(idx+1); };
+      document.addEventListener("keydown",M._key);
+    }
+    // photo zoom + doc open -> lightbox
+    imgEl.style.cursor="zoom-in";
+    imgEl.onclick=()=>openLightbox(imgEl.src);
+    M.querySelectorAll(".docbtn").forEach(b=>b.onclick=()=>openLightbox(wx(b.dataset.file)));
+
+    document.getElementById("overlay").classList.add("open");
+    document.body.style.overflow="hidden";
+    document.getElementById("closeBtn").onclick=closeModal;
+  }
+  function closeModal(){ const M=document.getElementById("modal"); if(M._key){document.removeEventListener("keydown",M._key);M._key=null;} document.getElementById("overlay").classList.remove("open"); document.body.style.overflow=""; }
+
+  // lightbox
+  const LB=document.getElementById("lightbox"), LBI=document.getElementById("lightbox-img");
+  function openLightbox(src){ LBI.src=src; LB.classList.add("open"); }
+  function closeLightbox(){ LB.classList.remove("open"); }
+  LB.addEventListener("click",e=>{ if(e.target!==LBI) closeLightbox(); });
+  document.getElementById("lbClose").addEventListener("click",closeLightbox);
+
+  grid.addEventListener("click", e=>{ const c=e.target.closest(".rcard"); if(c) openModal(c.dataset.id); });
+  grid.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ const c=e.target.closest(".rcard"); if(c){e.preventDefault();openModal(c.dataset.id);} } });
+  document.getElementById("overlay").addEventListener("click", e=>{ if(e.target.id==="overlay") closeModal(); });
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ if(LB.classList.contains("open")) closeLightbox(); else closeModal(); } });
+  document.getElementById("menuBtn").addEventListener("click", ()=>document.getElementById("links").classList.toggle("open"));
+  document.querySelectorAll("#links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("links").classList.remove("open")));
+</script>
+</body>
+</html>
