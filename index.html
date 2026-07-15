@@ -141,6 +141,10 @@
   .docbtn.primary:hover{background:var(--terra-d)}
   .docbtn:hover{border-color:var(--terra);color:var(--terra)}
   .docbtn.primary:hover{color:#fff}
+  .recipe-thumb{margin-top:1.1rem;display:block;width:100%;max-width:240px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;cursor:zoom-in;padding:0;box-shadow:var(--shadow-sm);transition:transform .15s ease,box-shadow .2s ease}
+  .recipe-thumb:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--terra)}
+  .recipe-thumb img{width:100%;height:158px;object-fit:cover;object-position:top center;display:block;background:#F1EDE3}
+  .recipe-thumb .rt-label{display:block;padding:.55rem .7rem;font-weight:800;font-size:.78rem;color:var(--terra);text-align:left;border-top:1px solid var(--line)}
 
   /* lightbox for recipe cards / photos */
   .lightbox{position:fixed;inset:0;background:rgba(30,22,16,.9);display:none;align-items:center;justify-content:center;z-index:200;padding:4vh 4vw;cursor:zoom-out}
@@ -233,7 +237,7 @@
         <div class="facts">
           <div class="fact">
             <div class="fact-label">How it started</div>
-            <p>A $500 Inspire grant from the National Charity League.</p>
+            <p>A $500 Inspire grant from the National Charity League — now over $800 raised thus far.</p>
           </div>
           <div class="fact">
             <div class="fact-label">The co-founders</div>
@@ -326,6 +330,10 @@
           <div class="taglist">${r.ingredients.map(i=>`<span class="tag">${i}</span>`).join("")}</div>
           <div class="m-sub">The recipe <span class="es">· La receta</span></div>
           <div class="docrow">${docs}</div>
+          <button class="recipe-thumb" data-file="${r.docs[0].file}" aria-label="Open the full ${r.title} recipe">
+            <img src="${wx(r.docs[0].file)}" alt="${r.title} recipe sheet" loading="lazy" />
+            <span class="rt-label">📄 Tap to view the full recipe</span>
+          </button>
         </div>
       </div>`;
 
@@ -344,6 +352,7 @@
     imgEl.style.cursor="zoom-in";
     imgEl.onclick=()=>openLightbox(imgEl.src);
     M.querySelectorAll(".docbtn").forEach(b=>b.onclick=()=>openLightbox(wx(b.dataset.file)));
+    var rThumb=M.querySelector(".recipe-thumb"); if(rThumb) rThumb.onclick=()=>openLightbox(wx(rThumb.dataset.file));
 
     document.getElementById("overlay").classList.add("open");
     document.body.style.overflow="hidden";
