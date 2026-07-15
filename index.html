@@ -73,6 +73,17 @@
   .rcard .es{font-family:"Fraunces",serif;font-style:italic;font-weight:500;color:var(--herb);font-size:1rem}
   .rcard .more{margin-top:1rem;font-weight:800;color:var(--terra);font-size:.9rem;display:inline-flex;gap:.35rem;align-items:center}
 
+  /* GALLERY */
+  .gallery{background:var(--paper);border-top:1px solid var(--line)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+  .gtile{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-sm);cursor:zoom-in;aspect-ratio:4/3;background:var(--cream);margin:0}
+  .gtile.wide{grid-column:span 2}
+  @media(max-width:520px){.gtile.wide{grid-column:span 1}}
+  .gtile img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .gtile:hover img,.gtile:focus-visible img{transform:scale(1.05)}
+  .gtile figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.3rem .95rem .75rem;font-size:.84rem;font-weight:700;color:#fff;background:linear-gradient(to top,rgba(30,22,16,.8),rgba(30,22,16,0));opacity:0;transition:opacity .22s ease}
+  .gtile:hover figcaption,.gtile:focus-visible figcaption{opacity:1}
+
   /* MISSION */
   .mission{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .mission-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:center}
@@ -149,6 +160,7 @@
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
     <nav class="links" id="links">
       <a href="#recipes">Recipes</a>
+      <a href="#gallery">Photos</a>
       <a href="#mission">About</a>
     </nav>
   </div>
@@ -181,6 +193,24 @@
       <p class="lead">Browse any recipe from a past class, or find something new to make with the produce you received from Sunday Friends this month. Tap a class to see the photos, the ingredients, and the recipe to take home.</p>
     </div>
     <div class="recipes-grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Momentos <span class="es">· From our classes</span></span>
+      <h2>Moments from our tables</h2>
+      <p class="lead">Members and instructors cooking, tasting, and sharing stories together. Tap any photo to see it larger.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="gtile wide" tabindex="0"><img src="images/class-serving.jpg" alt="A student instructor serving fresh salad to a member tasting a spring-roll wrap" loading="lazy"><figcaption>Building spring-roll wraps together</figcaption></figure>
+      <figure class="gtile" tabindex="0"><img src="images/springrolls-share.jpg" alt="A member proudly showing off his sliced spring-roll wraps on a cutting board" loading="lazy"><figcaption>Fresh spring rolls, ready to share</figcaption></figure>
+      <figure class="gtile" tabindex="0"><img src="images/icecream-family.jpg" alt="A mother and her son with a cup of homemade ice cream at the Sobrato campus" loading="lazy"><figcaption>Homemade ice cream at Sobrato</figcaption></figure>
+      <figure class="gtile wide" tabindex="0"><img src="images/class-table.jpg" alt="Members seated along a long table assembling wraps with fresh ingredients" loading="lazy"><figcaption>A full table of cooks at work</figcaption></figure>
+      <figure class="gtile" tabindex="0"><img src="images/chickpea-bowl.jpg" alt="A finished bowl of colorful chickpea salad" loading="lazy"><figcaption>Chickpea salad, fresh from class</figcaption></figure>
+    </div>
   </div>
 </section>
 
@@ -327,6 +357,13 @@
   function closeLightbox(){ LB.classList.remove("open"); }
   LB.addEventListener("click",e=>{ if(e.target!==LBI) closeLightbox(); });
   document.getElementById("lbClose").addEventListener("click",closeLightbox);
+
+  // gallery -> lightbox
+  document.querySelectorAll(".gtile").forEach(fig=>{
+    const im=fig.querySelector("img");
+    fig.addEventListener("click", ()=>openLightbox(im.src));
+    fig.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openLightbox(im.src); } });
+  });
 
   grid.addEventListener("click", e=>{ const c=e.target.closest(".rcard"); if(c) openModal(c.dataset.id); });
   grid.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ const c=e.target.closest(".rcard"); if(c){e.preventDefault();openModal(c.dataset.id);} } });
